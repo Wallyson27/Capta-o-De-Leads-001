@@ -389,20 +389,68 @@
                     </div>
                 </form>
 
-                <!-- Success Message -->
+                <!-- Success Message & Calendly -->
                 <div id="success-message" class="hidden text-center space-y-6 py-6">
                     <div class="flex justify-center">
-                        <div class="w-20 h-20 bg-[#d33255]/20 rounded-full flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d33255" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <div class="w-16 h-16 bg-[#d33255]/20 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#d33255" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                         </div>
                     </div>
-                    <h2 class="text-3xl font-display font-bold">Solicitação Recebida!</h2>
-                    <p class="text-white/60">
-                        Obrigado por confiar na LimTec & Inovações. Nossa equipe analisará seus dados e entrará em contato via WhatsApp em até 24h úteis.
-                    </p>
-                    <button onclick="window.location.reload()" class="btn-secondary w-full">
-                        Voltar ao Início
-                    </button>
+                    
+                    <div class="space-y-2">
+                        <h2 class="text-2xl md:text-3xl font-display font-bold">Dados Recebidos!</h2>
+                        <p class="text-white/60 max-w-md mx-auto">
+                            Para acelerar seus resultados, agende agora sua <strong>Consultoria Estratégica de 60 minutos</strong>. Vamos analisar seu negócio em detalhes.
+                        </p>
+                    </div>
+
+                    <!-- Widget em linha do Calendly - início -->
+                    <div class="calendly-inline-widget w-full rounded-xl overflow-hidden border border-white/10" data-url="https://calendly.com/limtecinovacoes/30min?background_color=261870&text_color=ffffff&primary_color=d33255&hide_event_type_details=1&hide_landing_page_details=1" style="min-width:320px;height:900px;"></div>
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                    <!-- Widget em linha do Calendly - fim -->
+
+                    <!-- Redirect Countdown Container -->
+                    <div id="redirect-container" class="hidden mt-6 p-6 bg-[#261870] rounded-xl border border-[#d33255]/30 shadow-lg shadow-[#d33255]/10">
+                        <h3 class="text-xl font-bold text-white mb-2">Agendamento Confirmado!</h3>
+                        <p class="text-white/80 mb-4">Redirecionando para o WhatsApp em:</p>
+                        <div class="text-4xl font-display font-bold text-[#d33255] mb-2" id="countdown-timer">30</div>
+                        <p class="text-sm text-white/40">Nossa equipe já está aguardando seu contato.</p>
+                        <a href="https://wa.me/message/B4C4M4WXVMSHH1" class="text-xs text-[#d33255] underline mt-2 block hover:text-white transition-colors">Ir para o WhatsApp agora</a>
+                    </div>
+
+                    <script>
+                        function isCalendlyEvent(e) {
+                            return e.data.event && e.data.event.indexOf('calendly') === 0;
+                        };
+
+                        window.addEventListener('message', function(e) {
+                            if (isCalendlyEvent(e)) {
+                                // Detecta quando o agendamento é concluído com sucesso
+                                if (e.data.event === 'calendly.event_scheduled') {
+                                    startWhatsAppRedirect();
+                                }
+                            }
+                        });
+
+                        function startWhatsAppRedirect() {
+                            const redirectContainer = document.getElementById('redirect-container');
+                            const countdownTimer = document.getElementById('countdown-timer');
+                            
+                            redirectContainer.classList.remove('hidden');
+                            redirectContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                            let seconds = 30;
+                            const interval = setInterval(() => {
+                                seconds--;
+                                countdownTimer.textContent = seconds;
+                                
+                                if (seconds <= 0) {
+                                    clearInterval(interval);
+                                    window.location.href = 'https://wa.me/message/B4C4M4WXVMSHH1';
+                                }
+                            }, 1000);
+                        }
+                    </script>
                 </div>
             </div>
 
