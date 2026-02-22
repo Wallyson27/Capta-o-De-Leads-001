@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LimTec & Inovações - Landing Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #3B82F6;
+            --brand-secondary: #10B981;
+            --brand-dark: #0A0F1E;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--brand-dark);
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .font-display { font-family: 'Outfit', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+        }
+        .btn-primary {
+            background: var(--brand-primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .input-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: white;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus {
+            border-color: var(--brand-primary);
+        }
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .radio-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .radio-card.selected {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--brand-primary);
+            color: white;
+        }
+        input[type="radio"] { display: none; }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col items-center justify-start md:justify-center p-4 md:p-6 relative">
+        <!-- Background Elements -->
+        <div class="fixed inset-0 pointer-events-none overflow-hidden">
+            <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-500/10 blur-[120px] rounded-full"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-[#00D1FF]/5 blur-[120px] rounded-full"></div>
+        </div>
+
+        <div class="w-full max-w-2xl z-10 py-8 md:py-0">
+            <!-- Progress Bar -->
+            <div id="progress-container" class="mb-8 space-y-2 hidden">
+                <div class="flex justify-between text-xs font-medium text-white/40 uppercase tracking-wider">
+                    <span id="step-counter">Passo 1 de 4</span>
+                    <span id="step-title">Contato</span>
+                </div>
+                <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 md:p-12 shadow-2xl">
+                <form id="multi-step-form">
+                    <!-- Step 0: Welcome -->
+                    <div class="step active" id="step-0">
+                        <div class="text-center space-y-6">
+                            <div class="flex justify-center flex-col items-center gap-4">
+                                <div class="w-24 h-24 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20 shadow-lg shadow-blue-500/10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+                                </div>
+                                <div class="px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-500">
+                                    Agência de Performance
+                                </div>
+                            </div>
+                            <h1 class="text-4xl md:text-5xl font-display font-bold tracking-tight">
+                                LimTec & <span class="text-[#00D1FF]">Inovações</span>
+                            </h1>
+                            <p class="text-lg text-white/60 max-w-md mx-auto">
+                                Pronto para escalar seu negócio? Responda algumas perguntas e descubra como nossa gestão de tráfego pode te ajudar.
+                            </p>
+                            
+                            <div class="grid grid-cols-3 gap-4 py-6 border-y border-white/5">
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-[#00D1FF]">+1M</div>
+                                    <div class="text-[10px] text-white/40 uppercase">Gerenciados</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-[#00D1FF]">ROI 5x</div>
+                                    <div class="text-[10px] text-white/40 uppercase">Média</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xl font-bold text-[#00D1FF]">24/7</div>
+                                    <div class="text-[10px] text-white/40 uppercase">Suporte</div>
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="goToStep(1)" class="btn-primary w-full max-w-xs mx-auto mt-4">
+                                Começar Agora
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Contact -->
+                    <div class="step" id="step-1">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <h2 class="text-2xl font-display font-bold">Informações de Contato</h2>
+                                <p class="text-white/60">Como podemos te chamar e onde te encontramos?</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80 flex items-center gap-2">Nome Completo</label>
+                                    <input type="text" name="name" placeholder="Seu nome" class="input-field" required>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80 flex items-center gap-2">Nome da Empresa</label>
+                                    <input type="text" name="company" placeholder="Sua empresa" class="input-field" required>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="text-sm font-medium text-white/80 flex items-center gap-2">E-mail Corporativo</label>
+                                        <input type="email" name="email" placeholder="exemplo@empresa.com" class="input-field" required>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-sm font-medium text-white/80 flex items-center gap-2">WhatsApp</label>
+                                        <input type="text" name="whatsapp" placeholder="(00) 00000-0000" class="input-field" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Business -->
+                    <div class="step" id="step-2">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <h2 class="text-2xl font-display font-bold">Sobre o seu Negócio</h2>
+                                <p class="text-white/60">Conte-nos um pouco mais sobre o que você faz.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80">Qual o seu nicho de atuação?</label>
+                                    <select name="niche" class="input-field appearance-none" required>
+                                        <option value="" class="bg-[#0A0F1E] text-white">Selecione...</option>
+                                        <option value="ecommerce" class="bg-[#0A0F1E] text-white">E-commerce</option>
+                                        <option value="servicos" class="bg-[#0A0F1E] text-white">Serviços Locais</option>
+                                        <option value="infoprodutos" class="bg-[#0A0F1E] text-white">Infoprodutos</option>
+                                        <option value="imobiliario" class="bg-[#0A0F1E] text-white">Imobiliário</option>
+                                        <option value="saude" class="bg-[#0A0F1E] text-white">Saúde / Estética</option>
+                                        <option value="outros" class="bg-[#0A0F1E] text-white">Outros</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80 flex items-center gap-2">Site ou Instagram</label>
+                                    <input type="text" name="website" placeholder="https://..." class="input-field" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Financial -->
+                    <div class="step" id="step-3">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <h2 class="text-2xl font-display font-bold">Métricas Atuais</h2>
+                                <p class="text-white/60">Isso nos ajuda a entender o seu momento.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80">Faturamento mensal médio</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <label class="radio-card"><input type="radio" name="revenue" value="Até R$ 10k" required>Até R$ 10k</label>
+                                        <label class="radio-card"><input type="radio" name="revenue" value="R$ 10k - R$ 50k">R$ 10k - R$ 50k</label>
+                                        <label class="radio-card"><input type="radio" name="revenue" value="R$ 50k - R$ 100k">R$ 50k - R$ 100k</label>
+                                        <label class="radio-card"><input type="radio" name="revenue" value="Acima de R$ 100k">Acima de R$ 100k</label>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80">Investimento atual em anúncios</label>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <label class="radio-card"><input type="radio" name="adSpend" value="Não invisto" required>Não invisto</label>
+                                        <label class="radio-card"><input type="radio" name="adSpend" value="Até R$ 2k">Até R$ 2k</label>
+                                        <label class="radio-card"><input type="radio" name="adSpend" value="R$ 2k - R$ 10k">R$ 2k - R$ 10k</label>
+                                        <label class="radio-card"><input type="radio" name="adSpend" value="Acima de R$ 10k">Acima de R$ 10k</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Goals -->
+                    <div class="step" id="step-4">
+                        <div class="space-y-6">
+                            <div class="space-y-2">
+                                <h2 class="text-2xl font-display font-bold">Objetivos e Vendas</h2>
+                                <p class="text-white/60">Onde você quer chegar?</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80">Qual o seu principal objetivo?</label>
+                                    <select name="goal" class="input-field appearance-none" required>
+                                        <option value="" class="bg-[#0A0F1E] text-white">Selecione...</option>
+                                        <option value="vendas" class="bg-[#0A0F1E] text-white">Vendas Diretas</option>
+                                        <option value="leads" class="bg-[#0A0F1E] text-white">Gerar Leads / Orçamentos</option>
+                                        <option value="branding" class="bg-[#0A0F1E] text-white">Reconhecimento de Marca</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-sm font-medium text-white/80">Você possui equipe de vendas?</label>
+                                    <div class="flex gap-4">
+                                        <label class="radio-card flex-1"><input type="radio" name="salesTeam" value="Sim" required>Sim</label>
+                                        <label class="radio-card flex-1"><input type="radio" name="salesTeam" value="Não">Não</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div id="nav-buttons" class="mt-8 pt-6 border-t border-white/5 flex flex-row gap-3 hidden">
+                        <button type="button" onclick="prevStep()" class="btn-secondary flex-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                            Anterior
+                        </button>
+                        <button type="button" id="next-btn" onclick="nextStep()" class="btn-primary flex-1">
+                            Próximo
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success Message -->
+                <div id="success-message" class="hidden text-center space-y-6 py-6">
+                    <div class="flex justify-center">
+                        <div class="w-20 h-20 bg-[#00D1FF]/20 rounded-full flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00D1FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                    </div>
+                    <h2 class="text-3xl font-display font-bold">Solicitação Recebida!</h2>
+                    <p class="text-white/60">
+                        Obrigado por confiar na LimTec & Inovações. Nossa equipe analisará seus dados e entrará em contato via WhatsApp em até 24h úteis.
+                    </p>
+                    <button onclick="window.location.reload()" class="btn-secondary w-full">
+                        Voltar ao Início
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 text-center text-white/20 text-xs uppercase tracking-widest flex flex-col gap-2">
+                <span>&copy; <span id="year"></span> LimTec & Inovações - Todos os direitos reservados</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        let currentStep = 0;
+        const totalSteps = 4;
+        const steps = document.querySelectorAll('.step');
+        const progressContainer = document.getElementById('progress-container');
+        const navButtons = document.getElementById('nav-buttons');
+        const progressBar = document.getElementById('progress-bar');
+        const stepCounter = document.getElementById('step-counter');
+        const stepTitle = document.getElementById('step-title');
+        const nextBtn = document.getElementById('next-btn');
+        const form = document.getElementById('multi-step-form');
+
+        const stepTitles = ['Início', 'Contato', 'Negócio', 'Métricas', 'Objetivos'];
+
+        // Handle radio card selection
+        document.querySelectorAll('.radio-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const name = card.querySelector('input').name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                card.classList.add('selected');
+                card.querySelector('input').checked = true;
+            });
+        });
+
+        function goToStep(step) {
+            steps[currentStep].classList.remove('active');
+            currentStep = step;
+            steps[currentStep].classList.add('active');
+
+            if (currentStep > 0) {
+                progressContainer.classList.remove('hidden');
+                navButtons.classList.remove('hidden');
+                
+                const progress = (currentStep / totalSteps) * 100;
+                progressBar.style.width = progress + '%';
+                stepCounter.textContent = `Passo ${currentStep} de ${totalSteps}`;
+                stepTitle.textContent = stepTitles[currentStep];
+
+                if (currentStep === totalSteps) {
+                    nextBtn.innerHTML = 'Finalizar <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
+                } else {
+                    nextBtn.innerHTML = 'Próximo <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+                }
+            } else {
+                progressContainer.classList.add('hidden');
+                navButtons.classList.add('hidden');
+            }
+        }
+
+        function nextStep() {
+            if (validateStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    goToStep(currentStep + 1);
+                } else {
+                    submitForm();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                goToStep(currentStep - 1);
+            }
+        }
+
+        function validateStep(step) {
+            const currentStepEl = document.getElementById(`step-${step}`);
+            const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    const name = input.name;
+                    const checked = currentStepEl.querySelector(`input[name="${name}"]:checked`);
+                    if (!checked) {
+                        isValid = false;
+                        input.closest('.grid').style.borderColor = 'red';
+                    }
+                } else if (!input.value) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) alert('Por favor, preencha todos os campos obrigatórios.');
+            return isValid;
+        }
+
+        async function submitForm() {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Handle radio buttons specifically if needed
+            const radios = ['revenue', 'adSpend', 'salesTeam'];
+            radios.forEach(r => {
+                const val = document.querySelector(`input[name="${r}"]:checked`)?.value;
+                if (val) data[r] = val;
+            });
+
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Enviando...';
+
+            // URL DO GOOGLE APPS SCRIPT (Substitua pela sua URL gerada)
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwL3Y_UhntL7l0waGRpXyL_U6001yxa1fyEzT-H1pGzLF22jvlp76AacS2XYqekcdeg/exec';
+
+            try {
+                // Envia para o Google Sheets (se a URL foi configurada)
+                if (GOOGLE_SCRIPT_URL !== 'COLE_SUA_URL_DO_GOOGLE_SCRIPT_AQUI') {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors', // Necessário para evitar erro de CORS do Google
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                } else {
+                    // Fallback para o servidor local se a URL do Google não estiver configurada
+                    await fetch('/api/leads', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+                }
+
+                // Sucesso (O no-cors sempre retorna status 0, então assumimos sucesso se não cair no catch)
+                form.classList.add('hidden');
+                progressContainer.classList.add('hidden');
+                navButtons.classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+                
+            } catch (error) {
+                console.error(error);
+                alert('Erro de conexão. Tente novamente.');
+                nextBtn.disabled = false;
+                nextBtn.textContent = 'Finalizar';
+            }
+        }
+    </script>
+</body>
+</html>
