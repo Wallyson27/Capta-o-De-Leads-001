@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { motion, AnimatePresence } from 'motion/react';
 import { 
   ChevronRight, 
   ChevronLeft, 
@@ -90,21 +89,20 @@ export default function App() {
   const onSubmit = async (data: FormData) => {
     console.log('Submitting data:', data);
     try {
-      const response = await fetch('/api/leads', {
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwL3Y_UhntL7l0waGRpXyL_U6001yxa1fyEzT-H1pGzLF22jvlp76AacS2XYqekcdeg/exec';
+      
+      // Try Google Script first (no-cors mode required)
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+
+      // Also send to local API for redundancy if needed, or just assume success
+      // For this migration, we'll assume the Google Script is the primary destination as per the HTML version
       
-      console.log('Server response:', response.status);
-      
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        const errorData = await response.json();
-        console.error('Server error:', errorData);
-        alert('Erro ao enviar formulário. Tente novamente.');
-      }
+      setIsSubmitted(true);
     } catch (error) {
       console.error('Submission error:', error);
       alert('Erro de conexão. Tente novamente.');
@@ -115,10 +113,7 @@ export default function App() {
     switch (currentStep) {
       case 0:
         return (
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+          <div 
             className="text-center space-y-6"
           >
             <div className="flex justify-center flex-col items-center gap-4">
@@ -158,15 +153,12 @@ export default function App() {
               Começar Agora
               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-          </motion.div>
+          </div>
         );
 
       case 1:
         return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+          <div 
             className="space-y-6"
           >
             <div className="space-y-2">
@@ -227,15 +219,12 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       case 2:
         return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+          <div 
             className="space-y-6"
           >
             <div className="space-y-2">
@@ -273,15 +262,12 @@ export default function App() {
                 {errors.website && <span className="text-xs text-red-500">{errors.website.message}</span>}
               </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       case 3:
         return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+          <div 
             className="space-y-6"
           >
             <div className="space-y-2">
@@ -322,15 +308,12 @@ export default function App() {
                 {errors.adSpend && <span className="text-xs text-red-500">{errors.adSpend.message}</span>}
               </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       case 4:
         return (
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+          <div 
             className="space-y-6"
           >
             <div className="space-y-2">
@@ -369,7 +352,7 @@ export default function App() {
                 {errors.salesTeam && <span className="text-xs text-red-500">{errors.salesTeam.message}</span>}
               </div>
             </div>
-          </motion.div>
+          </div>
         );
 
       default:
@@ -380,9 +363,7 @@ export default function App() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+        <div 
           className="glass-card p-12 text-center max-w-lg w-full space-y-6"
         >
           <div className="flex justify-center">
@@ -400,13 +381,13 @@ export default function App() {
           >
             Voltar ao Início
           </button>
-        </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start md:justify-center p-4 md:p-6 relative overflow-x-hidden bg-brand-dark">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-start md:justify-center p-4 md:p-6 relative overflow-x-hidden bg-brand-dark pb-[env(safe-area-inset-bottom)]">
       {/* Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-primary/10 blur-[120px] rounded-full" />
@@ -422,10 +403,9 @@ export default function App() {
               <span>{STEPS[currentStep].title}</span>
             </div>
             <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-              <motion.div 
-                initial={{ width: 0 }}
-                animate={{ width: `${(currentStep / (STEPS.length - 1)) * 100}%` }}
-                className="h-full bg-brand-primary"
+              <div 
+                style={{ width: `${(currentStep / (STEPS.length - 1)) * 100}%` }}
+                className="h-full bg-brand-primary transition-all duration-300"
               />
             </div>
           </div>
@@ -433,9 +413,7 @@ export default function App() {
 
         <div className="glass-card p-6 md:p-12 shadow-2xl flex flex-col">
           <div className="flex-1">
-            <AnimatePresence mode="wait">
-              {renderStep()}
-            </AnimatePresence>
+            {renderStep()}
           </div>
 
           {currentStep > 0 && (

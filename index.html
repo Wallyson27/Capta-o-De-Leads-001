@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>LimTec & Inovações - Landing Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700&display=swap" rel="stylesheet">
@@ -67,6 +67,12 @@
             color: white;
             outline: none;
             transition: border-color 0.2s;
+            font-size: 16px; /* Mobile optimization: text-base */
+        }
+        @media (min-width: 768px) {
+            .input-field {
+                font-size: 14px; /* Desktop: text-sm */
+            }
         }
         .input-field:focus {
             border-color: var(--brand-primary);
@@ -99,7 +105,8 @@
     </style>
 </head>
 <body>
-    <div class="min-h-screen flex flex-col items-center justify-start md:justify-center p-4 md:p-6 relative">
+    <!-- Main Container with Mobile Optimizations: min-h-[100dvh] and pb-[env(safe-area-inset-bottom)] -->
+    <div class="min-h-[100dvh] flex flex-col items-center justify-start md:justify-center p-4 md:p-6 relative pb-[env(safe-area-inset-bottom)]">
         <!-- Background Elements -->
         <div class="fixed inset-0 pointer-events-none overflow-hidden">
             <div class="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-500/10 blur-[120px] rounded-full"></div>
@@ -312,6 +319,11 @@
             </div>
         </div>
     </div>
+
+    <!-- React Root (Optional, for future migration) -->
+    <div id="root"></div>
+    <!-- We keep the script import but the static content above will be visible first -->
+    <!-- <script type="module" src="/src/main.tsx"></script> -->
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
