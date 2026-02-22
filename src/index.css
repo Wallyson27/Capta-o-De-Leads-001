@@ -5,14 +5,14 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", sans-serif;
   
-  --color-brand-primary: #0066FF;
-  --color-brand-secondary: #00D1FF;
-  --color-brand-dark: #0A0F1E;
+  --color-brand-primary: #d33255;
+  --color-brand-secondary: #261870;
+  --color-brand-dark: #261870;
 }
 
 @layer base {
   body {
-    @apply bg-[#0A0F1E] text-white font-sans antialiased;
+    @apply bg-[#261870] text-white font-sans antialiased;
   }
 }
 
