@@ -21,8 +21,7 @@
         }
         .font-display { font-family: 'Outfit', sans-serif; }
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
+            background: #261870;
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
         }
@@ -102,6 +101,72 @@
             color: white;
         }
         input[type="radio"] { display: none; }
+
+        /* Logo Animation Styles - PCB Effect */
+        .logo-wrapper {
+            position: relative;
+            width: 340px; /* Increased canvas for traces */
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-img {
+            width: 160px; /* Larger logo */
+            height: 160px;
+            object-fit: contain;
+            z-index: 20;
+            filter: drop-shadow(0 0 25px rgba(211, 50, 85, 0.5));
+            position: relative;
+            background: radial-gradient(circle, rgba(38, 24, 112, 0.9) 40%, transparent 70%); /* Glow/Backdrop */
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .pcb-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .circuit-path {
+            fill: none;
+            stroke: rgba(211, 50, 85, 0.2);
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .circuit-energy {
+            fill: none;
+            stroke: #d33255;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 40 400; /* Longer pulse */
+            stroke-dashoffset: 440;
+            animation: flow-energy 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            filter: drop-shadow(0 0 4px #d33255);
+        }
+
+        .circuit-node {
+            fill: rgba(211, 50, 85, 0.2);
+        }
+
+        .circuit-node-active {
+            fill: #d33255;
+            animation: pulse-node 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes flow-energy {
+            0% { stroke-dashoffset: 440; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes pulse-node {
+            0%, 70% { opacity: 0.2; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1.8); }
+            100% { opacity: 0.2; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -131,7 +196,40 @@
                     <div class="step active" id="step-0">
                         <div class="text-center space-y-6">
                             <div class="flex justify-center flex-col items-center gap-4">
-                                <img src="https://srv1198-files.hstgr.io/4abb760dd30fdaeb/files/Imagens/LOGO03.png" alt="LimTec & Inovações" class="w-32 h-32 object-contain">
+                                <div class="logo-wrapper">
+                                    <svg class="pcb-container" viewBox="0 0 340 340">
+                                        <defs>
+                                            <circle id="node-dot" r="3" />
+                                            <!-- Standard Trace: Straight then 45deg turn -->
+                                            <g id="trace-type-1">
+                                                <path class="circuit-path" d="M0,-85 L0,-120 L20,-140" />
+                                                <path class="circuit-energy" d="M0,-85 L0,-120 L20,-140" />
+                                                <use href="#node-dot" x="20" y="-140" class="circuit-node" />
+                                                <use href="#node-dot" x="20" y="-140" class="circuit-node-active" style="animation-delay: 1.2s" />
+                                            </g>
+                                            <!-- Standard Trace: Straight out -->
+                                            <g id="trace-type-2">
+                                                <path class="circuit-path" d="M0,-85 L0,-150" />
+                                                <path class="circuit-energy" d="M0,-85 L0,-150" style="animation-delay: 0.5s" />
+                                                <use href="#node-dot" x="0" y="-150" class="circuit-node" />
+                                                <use href="#node-dot" x="0" y="-150" class="circuit-node-active" style="animation-delay: 1.7s" />
+                                            </g>
+                                        </defs>
+
+                                        <g transform="translate(170, 170)">
+                                            <!-- 8 Directions -->
+                                            <use href="#trace-type-1" transform="rotate(0)" />
+                                            <use href="#trace-type-2" transform="rotate(45)" />
+                                            <use href="#trace-type-1" transform="rotate(90)" />
+                                            <use href="#trace-type-2" transform="rotate(135)" />
+                                            <use href="#trace-type-1" transform="rotate(180)" />
+                                            <use href="#trace-type-2" transform="rotate(225)" />
+                                            <use href="#trace-type-1" transform="rotate(270)" />
+                                            <use href="#trace-type-2" transform="rotate(315)" />
+                                        </g>
+                                    </svg>
+                                    <img src="https://raw.githubusercontent.com/Wallyson27/Projeto_Gestor_De_Trafego/main/LOGO03.png?v=1" alt="LimTec & Inovações" class="logo-img">
+                                </div>
                             </div>
                             <h1 class="text-4xl md:text-5xl font-display font-bold tracking-tight">
                                 LimTec & <span class="text-[#d33255]">Inovações</span>
